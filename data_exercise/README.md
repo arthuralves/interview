@@ -11,7 +11,7 @@ Please complete the following and submit your work:
 
 1. Load the data file into memory.
 2. Create an empty object with a 'products' key, and assign an empty array as it's value.
-3. For each variant in your loaded dataset, generate a flat object that includes the following:
+3. Each product contains a list of variants. These are variations on a given product (e.g. Astronaut Suit, Blue, and XL). For each variant in your loaded dataset, generate a flat object that includes the following:
 
 - variant id
 - product title + variant title (combined)
@@ -20,7 +20,7 @@ Please complete the following and submit your work:
 - description
 - color
 
-*Choose your own key names that are appropriate for the values assigned.
+*Choose your own key names that are appropriate for the values assigned. Some of these values may come from the top level product.
 
 1. Estimate the potential sales for each variant by multiplying price by inventory. Add a key to each variant object called 'potential_sales'.
 2. Calculate the combined potential sales for all variants, and store the value at the top level of your object under the key 'potential_sales_total'.
