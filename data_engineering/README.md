@@ -3,9 +3,7 @@ Our suits are highest-end, super air-tight variety, and are very expensive 🚀 
 
 We need to learn more about our astronaut customers who are pretty picky when it comes to spacesuit fit. The better we understand their behavior, the better we can do to fit them in the right spacesuit.
 
-You'll find a sqlite database in this directory which contains two tables, described below. A frontend application is used to provide our astronaut customers with their spacesuit recommendations, and the data collected from this application is focused around customer usage of the application.
-
-You’ll find the same data in csv format, which can be used for the Python/Pandas questions.
+You'll two files with data in csv format in this directory which contains two tables, described below. A frontend application is used to provide our astronaut customers with their spacesuit recommendations, and the data collected from this application is focused around customer usage of the application.
 
 The `purchase_return` table contains purchase orders and return data for users that have made a purchase Spacesuit & Co. purchase.
 The `telemetry` table contains usage data from our application.
