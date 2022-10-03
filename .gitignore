@@ -4,3 +4,7 @@
 /react_tech_interview/node_modules
 /react_tech_interview/.pnp
 /react_tech_interview/.pnp.js
+
+__pycache__
+.pytest_cache
+.ipynb_checkpoints
