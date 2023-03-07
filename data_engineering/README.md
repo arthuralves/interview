@@ -6,8 +6,10 @@ Our suits are of the high-end, super air-tight variety, and are very expensive ð
 We need to learn more about our astronaut customers who are pretty picky when it comes to spacesuit fit. The better we understand their behavior, the better we can fit them in the right spacesuit.
 
 This directory contains two files with data in CSV format. Each CSV contains one table:
-* The `purchase_return` table contains purchase orders and return data for users that have made a purchase Spacesuit & Co. purchase.
-* The `user_telemetry` table contains usage data from our application.
+* `data/csv/purchase_return.csv`<br>
+The `purchase_return` table contains purchase orders and return data for users that have made a purchase Spacesuit & Co. purchase.
+* `data/csv/user_telemetry.csv`<br>
+The `user_telemetry` table contains usage data from our application.
 
 # Assignment
 
@@ -21,6 +23,6 @@ Feel free to ask us questions if anything is unclear ;) Good luck!
 
 Please use SQL to answer the following questions:
 
-    1. How many space suits where sold?
-    2. What is the average age for a) astronauts who purchased and kept their items and b) astronauts who returned?
-    3. For the product with the most purchases, which size was returned the most? How many times was that size returned?
+1. How many space suits where sold?
+2. What is the average age for a) astronauts who purchased and kept their items and b) astronauts who returned?
+3. For the product with the most purchases, which size was returned the most? How many times was that size returned?
