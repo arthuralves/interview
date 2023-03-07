@@ -23,6 +23,6 @@ Feel free to ask us questions if anything is unclear ;) Good luck!
 
 Please use SQL to answer the following questions:
 
-1. How many space suits where sold?
+1. How many space suits were sold all-time?
 2. What is the average age for a) astronauts who purchased and kept their items and b) astronauts who returned?
 3. For the product with the most purchases, which size was returned the most? How many times was that size returned?
