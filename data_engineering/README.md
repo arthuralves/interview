@@ -35,14 +35,12 @@ https://www.sqlite.org/download.html
     * `.import data/user_telemetry.csv user_telemetry`
 1. Verify the imports (i.e., check their schemas to mostly check that they were uploaded correctly):<br>
     * `.schema purchase_return`
-        * This should return the following:<br>
-        ```CREATE TABLE IF NOT EXISTS "purchase_return"(
+        * This should return the following:<br>```CREATE TABLE IF NOT EXISTS "purchase_return"(
 "transaction_id" TEXT, "product_id" TEXT, "locale" TEXT, "order_type" TEXT,
  "size" TEXT, "reason_code" TEXT, "price" TEXT, "fit_return_w_empty_reason_code" TEXT,
  "Fit Return" TEXT, "Product Name" TEXT, "Gender" TEXT, "date" TEXT);```
     * `.schema user_telemetry`
-        * This should return the following:<br>
-        ```CREATE TABLE IF NOT EXISTS "user_telemetry"(
+        * This should return the following:<br>```CREATE TABLE IF NOT EXISTS "user_telemetry"(
 "transaction_id" TEXT, "user_id" TEXT, "client_id" TEXT,
  "size" TEXT, "product_id" TEXT, "date" TEXT, "size_1_id" TEXT,
  "size_2_id" TEXT, "size_3_id" TEXT, "confidence_1" TEXT, "confidence_2" TEXT,
