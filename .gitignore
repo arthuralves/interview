@@ -5,6 +5,10 @@
 /react_tech_interview/.pnp
 /react_tech_interview/.pnp.js
 
+/tech_interview_fullstack/node_modules
+/tech_interview_fullstack/server/node_modules
+/tech_interview_fullstack/.node-persist
+
 __pycache__
 .pytest_cache
 .ipynb_checkpoints
