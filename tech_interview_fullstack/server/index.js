@@ -33,7 +33,7 @@ app.post('/profile', (req, res) => {
 });
 
 // PUT /profile endpoint
-app.post('/profile', (req, res) => {
+app.put('/profile', (req, res) => {
   // TODO: Implement the logic to update the profile
   storage.setItem('profiles', profiles);
   res.json(' // RETURN VALUE');
