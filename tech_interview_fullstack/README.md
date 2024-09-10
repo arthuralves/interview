@@ -53,7 +53,7 @@ We've provided you with some starter code to get you started -- they are in vari
 - src/components/ProductDropdown.jsx
 
 #### Tips
-- If any instructions are unclear, assume the best approach to take. Use your best judgement.
+- If any instructions are unclear, assume the best approach to take. Use your best judgement. Some things here are left intentionally a bit vague! We want to see how you approach these problems.
 - Use the internet to your advantage -- we are programmers, we should use the resources available to us! However, do not copy and paste code. Understand the code you are using, and be able to explain it if asked.
 - We understand that this is a challenging assignment, and it is okay if you do not complete it. We are more interested in your thought process than the final outcome. That being said, if you finish early, feel free to add additional frontend or backend logic to show off your skills!
 - The "best" recommendation is usually the first size returned from the external API, in the `good_matches` array. However, the API also provides some textual information about the recommendation. You could use this information to provide a more human-readable recommendation if you like!
