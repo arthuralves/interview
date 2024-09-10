@@ -28,10 +28,10 @@ You will call this API using the method `getRecommendation`.
 
 This API has strict requirements on the format of the request. Our products database has various sizes available for each product, but the external API requires a specific format for the sizes. The recommendations service will error out if the sizes are not in the correct format. Moreover, the external API requires a specific format for the height, weight, age, and waist. That format is also specified below.
 
-height: in inches, as a rounded number
-weight: in pounds, as a rounded number
-age: in years, as a rounded number
-waist: in inches, as a rounded number
+- `height`: in inches, as a rounded number
+- `weight`: in pounds, as a rounded number
+- `age`: in years, as a rounded number
+- `waist`: in inches, as a rounded number
 
 You will need to write a function that converts the sizes in our database to the size formats expected from the external API. Additionally, you will need to provide our "best" recommendation for the inputs provided.
 
