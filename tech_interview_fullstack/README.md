@@ -67,7 +67,7 @@ If you're ready to get started...
 - Install all dependencies using `npm install`.
 - Run `npm run dev` to start the web server
 	- the client should run on `localhost:5173` 
-	- the client should run on `localhost:3000`
+	- the server should run on `localhost:3000`
 - Initialize an empty git commit using the following command: `git commit --allow-empty -m "Start Timer"`, and commit your code regularly so that we can see your progress in real time. **Your final commit should be no more than 120 minutes after your initial commit.**
 
 Remember -- you may not finish everything, and that is perfectly okay! We are more interested in your progress and thought process than the final outcome.
