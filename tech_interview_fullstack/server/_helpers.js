@@ -1,3 +1,5 @@
+// NOTE: Nothing in this file should be edited.
+
 const getRecommendation = async ({ profile, availableSizes }) => {
   const { height, weight, age, waist } = profile;
 
