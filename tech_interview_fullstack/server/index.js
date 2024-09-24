@@ -23,8 +23,21 @@ if (!profiles || !Array.isArray(profiles)) {
 }
 
 // GET /profile endpoint
-app.get('/profile', (req, res) => {
-  res.json('// RETURN VALUE');
+app.get('/profile', async (req, res) => {
+    const { profileId } = req.query;
+
+    if (!profileId) {
+      return res.status(400).json({ error: 'Missing profile id' });
+    }
+
+    const profiles = await storage.getItem('profiles') || [];
+    const profile = profiles.find(p => p.id === profileId);
+
+    if (!profile) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    res.json(profile);
 });
 
 

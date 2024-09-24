@@ -12,8 +12,23 @@ const ProductDropdown = () => {
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
-  const handleProductChange = (event) => {
-    setSelectedProduct(event.target.value);
+  const handleProductChange = async (event) => {
+    const productId = event.target.value;
+    setSelectedProduct(productId);
+
+    if (productId && profileId) {
+      try {
+        const response = await fetch(`http://localhost:3000/recommendation?productId=${productId}&profileId=${profileId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setRecommendation(data.recommendation);
+        } else {
+          console.error('Failed to get recommendation');
+        }
+      } catch (error) {
+        console.error('Error fetching recommendation:', error);
+      }
+    }
   };
 
   return (
