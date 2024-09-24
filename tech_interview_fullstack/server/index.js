@@ -4,6 +4,8 @@ import cors from 'cors'
 import { getRecommendation } from './_helpers.js';
 import { getProductById, getProducts } from './_fake_db.js';
 import storage from 'node-persist';
+import {v4 as uuidv4} from 'uuid';
+import { body, validationResult } from 'express-validator';
 
 await storage.init();
 
@@ -16,8 +18,8 @@ app.use(bodyParser.json());
 
 let profiles = await storage.getItem('profiles');
 
-if (!profiles) {
-  profiles = '//TODO: Build your data structure for profile storage here';
+if (!profiles || !Array.isArray(profiles)) {
+  profiles = [];
 }
 
 // GET /profile endpoint
@@ -26,10 +28,35 @@ app.get('/profile', (req, res) => {
 });
 
 // POST /profile endpoint
-app.post('/profile', (req, res) => {
-  // TODO: Implement the logic to create the profile
-  storage.setItem('profiles', profiles);
-  res.json(' // RETURN VALUE');
+app.post('/profile', [
+  body('height').isNumeric().withMessage('Height must be a number'),
+  body('weight').isNumeric().withMessage('Weight must be a number'),
+  body('age').isInt({ min: 0 }).withMessage('Age must be a positive integer'),
+  body('waist').isNumeric().withMessage('Waist must be a number')
+], async (req, res) => {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { height, weight, age, waist } = req.body;
+
+  const newProfile = {
+    id: uuidv4(),
+    height,
+    weight,
+    age,
+    waist
+  };
+
+  try {
+    await storage.setItem('profiles', profiles);
+    res.status(201).json({ message: 'Profile created', newProfile });
+  } catch (error) {
+    console.error('Error saving profile:', error);
+    res.status(500).json({ message: 'Server error, could not save profile' });
+  }
 });
 
 // PUT /profile endpoint
