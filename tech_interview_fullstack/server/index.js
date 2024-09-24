@@ -5,7 +5,7 @@ import { getRecommendation } from './_helpers.js';
 import { getProductById, getProducts } from './_fake_db.js';
 import storage from 'node-persist';
 import {v4 as uuidv4} from 'uuid';
-import { body, validationResult } from 'express-validator';
+import { body,query, validationResult } from 'express-validator';
 
 await storage.init();
 
@@ -27,11 +27,12 @@ app.get('/profile', (req, res) => {
   res.json('// RETURN VALUE');
 });
 
+
 // POST /profile endpoint
 app.post('/profile', [
-  body('height').isNumeric().withMessage('Height must be a number'),
-  body('weight').isNumeric().withMessage('Weight must be a number'),
-  body('age').isInt({ min: 0 }).withMessage('Age must be a positive integer'),
+  body('height').isNumeric({ min: 51.77 }).withMessage('Height must be a number greater than 51.77'),
+  body('weight').isNumeric({ min: 96.447334 }).withMessage('Weight must be a number greater than 96.447334'),
+  body('age').isInt({ min: 13 }).withMessage('Age must be a positive integer greater than 13'),
   body('waist').isNumeric().withMessage('Waist must be a number')
 ], async (req, res) => {
 
@@ -51,10 +52,11 @@ app.post('/profile', [
   };
 
   try {
+    profiles.push(newProfile);
     await storage.setItem('profiles', profiles);
     res.status(201).json({ message: 'Profile created', newProfile });
   } catch (error) {
-    console.error('Error saving profile:', error);
+    console.error('Error saving profile1:', error);
     res.status(500).json({ message: 'Server error, could not save profile' });
   }
 });
@@ -71,23 +73,56 @@ app.get('/products', (req, res) => {
   res.json(products);
 });
 
-// GET /recommendation endpoint
-app.get('/recommendation', async (req, res) => {
-
-    const getAvailableSizes = ({ productId }) => {
-        const product = getProductById(productId);
-    
-        let sizes = [];
-    
-        // TODO: Implement the logic to get the unique and in stock available sizes from the product
-    
-        return sizes;
+  const getAvailableSizes = ({ productId }) => {
+    const product = getProductById(parseInt(productId, 10));
+    if (!product) {
+      return null;
     }
-  // TODO: Implement the logic to get the product id and available sizes, as well as the profile
-  
-  const recommendation = await getRecommendation({ profile: null, availableSizes: null });
-  
-  res.json({ recommendation });
+
+    // Extract unique, in-stock sizes
+    const sizes = product.variants
+      .filter(variant => variant.inStock)
+      .map(variant => variant.size.toUpperCase())
+      .filter(size => ['XS', 'S', 'M', 'L', 'XL', 'XXL'].includes(size));
+
+    return sizes;
+  }
+
+// GET /recommendation endpoint
+app.get('/recommendation', [
+  query('productId').isInt().withMessage('Product ID must be an integer'),
+  query('profileId').isUUID().withMessage('Profile ID must be a valid UUID')
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {productId, profileId }   = req.query;
+
+    // Get available sizes from the product
+    const availableSizes = getAvailableSizes({ productId });
+    if (!availableSizes || availableSizes.length === 0) {
+      return res.status(404).json({ error: 'No available sizes found for this product' });
+    }
+
+    // Retrieve the profile
+    const profile = profiles.find(p => p.id === profileId);
+    if (!profile) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    try {
+      // Call the external recommendation API with profile and available sizes
+      const recommendation = await getRecommendation({ profile, availableSizes });
+      if (recommendation.error) {
+        return res.status(500).json({ error: recommendation.error });
+      }
+
+      res.json({ recommendation });
+    } catch (error) {
+      res.status(500).json({ error: 'Error getting recommendation' });
+    }
 });
 
 app.listen(port, () => {
