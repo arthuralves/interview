@@ -75,10 +75,29 @@ app.post('/profile', [
 });
 
 // PUT /profile endpoint
-app.put('/profile', (req, res) => {
-  // TODO: Implement the logic to update the profile
+app.put('/profile', [
+  body('id').isUUID().withMessage('Profile ID must be a valid UUID'),
+  body('height').isNumeric({ min: 51.77 }).withMessage('Height must be a number greater than 51.77'),
+  body('weight').isNumeric({ min: 96.447334 }).withMessage('Weight must be a number greater than 96.447334'),
+  body('age').isInt({ min: 13 }).withMessage('Age must be a positive integer greater than 13'),
+  body('waist').isNumeric().withMessage('Waist must be a number')
+], async (req, res) => {
+  const { id, height, weight, age, waist } = req.body;
+
+  // Validate input
+  if (!id || !height || !weight || !age || !waist) {
+    return res.status(400).json({ error: 'Missing profile information' });
+  }
+
+  const profileIndex = profiles.findIndex(profile => profile.id === id);
+  if (profileIndex === -1) {
+    return res.status(404).json({ error: 'Profile not found' });
+  }
+
+  profiles[profileIndex] = { id, height, weight, age, waist };
   storage.setItem('profiles', profiles);
-  res.json(' // RETURN VALUE');
+
+  res.status(200).json(profiles[profileIndex]);
 });
 
 app.get('/products', (req, res) => {
