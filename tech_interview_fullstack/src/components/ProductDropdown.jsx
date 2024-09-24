@@ -14,13 +14,16 @@ const ProductDropdown = ({ profileId, setRecommendation }) => {
   const handleProductChange = async (event) => {
     const productId = event.target.value;
     setSelectedProduct(productId);
-console.log(profileId)
     if (profileId && productId) {
       try {
         const response = await fetch(`http://localhost:3000/recommendation?productId=${productId}&profileId=${profileId}`);
         if (response.ok) {
           const data = await response.json();
-          setRecommendation(data.recommendation);
+          console.log(data)
+          console.log(data.recommendation.size_recommendations.good_matches[0].garment.size);
+          setRecommendation({
+            productName: data.recommendation.customer.product_id,
+            size: data.recommendation.size_recommendations.good_matches[0].garment.size});
         } else {
           console.error('Failed to get recommendation');
         }
