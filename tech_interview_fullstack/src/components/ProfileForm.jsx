@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const ProfileForm = () => {
+export const ProfileForm = ({ setProfileId }) => {
     const [formData, setFormData] = useState({
         height: '',
         weight: '',
@@ -58,6 +58,8 @@ export const ProfileForm = () => {
                     ...profileData,
                     profileId: profileData.id
                 });
+                
+                setProfileId(profileData.id);                
                 console.log('Profile loaded!');
             } else {
                 console.error('Failed to load profile');
@@ -128,3 +130,4 @@ export const ProfileForm = () => {
         </div>
     );
 }
+export default ProfileForm;

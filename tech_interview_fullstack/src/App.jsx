@@ -1,19 +1,23 @@
-import React from 'react';
-import './App.css'
-import { ProfileForm } from './components/ProfileForm';
+import React, { useState } from 'react';
+import ProfileForm from './components/ProfileForm';
 import ProductDropdown from './components/ProductDropdown';
 
-function App() {
+const App = () => {
+  const [profileId, setProfileId] = useState('');
+  const [recommendation, setRecommendation] = useState('');
 
   return (
-    <>
-      <ProfileForm />
-      <hr />
-      <ProductDropdown />
-      <br />
-      My recommended size for `PRODUCT_NAME` is:
-    </>
-  )
-}
+    <div>
+      <ProfileForm setProfileId={setProfileId} />
+      <ProductDropdown 
+        profileId={profileId} 
+        setRecommendation={setRecommendation} 
+      />
+      {recommendation && (
+        <p>My recommended size for {recommendation.productName} is: {recommendation.size}</p>
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;

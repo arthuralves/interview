@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ProductDropdown = () => {
+const ProductDropdown = ({ profileId, setRecommendation }) => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState('');
 
@@ -8,15 +8,14 @@ const ProductDropdown = () => {
     fetch('http://localhost:3000/products')
       .then(response => response.json())
       .then(data => setProducts(data))
-      .then(() => console.log(products))
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
   const handleProductChange = async (event) => {
     const productId = event.target.value;
     setSelectedProduct(productId);
-
-    if (productId && profileId) {
+console.log(profileId)
+    if (profileId && productId) {
       try {
         const response = await fetch(`http://localhost:3000/recommendation?productId=${productId}&profileId=${profileId}`);
         if (response.ok) {
